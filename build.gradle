@@ -1,0 +1,21 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion Integer.parseInt(rootProject.ANDROID_SDK_VERSION)
+    buildToolsVersion rootProject.ANDROID_BUILD_TOOLS_VERSION
+
+    defaultConfig {
+        minSdkVersion Integer.parseInt(rootProject.MIN_ANDROID_SDK_VERSION)
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+}
+
+dependencies {
+    compile "com.android.support:appcompat-v7:$rootProject.ANDROID_SUPPORT_LIBRARY_VERSION"
+    compile 'com.google.code.gson:gson:2.3.1'
+    compile 'com.jakewharton.timber:timber:3.1.0'
+}
