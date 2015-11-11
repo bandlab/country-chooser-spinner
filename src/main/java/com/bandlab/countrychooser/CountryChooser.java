@@ -6,52 +6,35 @@ import android.util.AttributeSet;
 import android.widget.ArrayAdapter;
 
 import com.example.modulecountrychooser.R;
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
-/**
- * Created by vorobievilya on 22/12/14.
- */
 public class CountryChooser extends AppCompatSpinner {
 
-    private Country[] countries;
+    private final Country[] countries;
 
     public CountryChooser(Context context) {
-        super(context);
-        init();
+        this(context, null);
     }
 
     public CountryChooser(Context context, AttributeSet attrs) {
         super(context, attrs);
-
-        init();
-    }
-
-    public void init() {
-        try {
-            InputStream is = getContext().getAssets().open("countries.json");
-            Gson gson = new Gson();
-            countries = gson.fromJson(new JsonReader(new InputStreamReader(is)), Country[].class);
-            ArrayAdapter<Country> adapter = new ArrayAdapter<>(getContext(), R.layout.country_item, countries);
-            setAdapter(adapter);
-        } catch (IOException e) {
-            e.printStackTrace();
+        final String[] codes = context.getResources().getStringArray(R.array.country_codes);
+        countries = new Country[codes.length];
+        for (int i = 0; i < codes.length; i++) {
+            String code = codes[i];
+            countries[i] = Countries.getCountryByCode(context, Integer.parseInt(code));
         }
-
+        ArrayAdapter<Country> adapter = new ArrayAdapter<>(getContext(), R.layout.country_item, countries);
+        setAdapter(adapter);
     }
 
-    public int getSelectedCountryCode() {
+    public final int getSelectedCountryCode() {
         Country country = (Country) getSelectedItem();
-        return country.countryCodeNumbers;
+        return country.code;
     }
 
-    public void selectCountry(int code) {
+    public final void selectCountry(int code) {
         for (int i = 0; i < countries.length; i++) {
-            if (countries[i].countryCodeNumbers == code) {
+            if (countries[i].code == code) {
                 setSelection(i);
             }
         }

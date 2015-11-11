@@ -20,6 +20,10 @@ def _mkdir_recursive(path):
         _mkdir_recursive(sub_path)
     if not os.path.exists(path):
         os.mkdir(path)
+    return
+
+def _prepare_string(text):
+	return text.replace("'", r"\'")
 
 has_locale = len(sys.argv) > 1
 if has_locale:
@@ -28,7 +32,7 @@ if has_locale:
 		locale = gettext.translation('iso3166', pycountry.LOCALES_DIR, languages=[str(code)])
 	except IOError:
 		print "Locale '{}' not found".format(code)
-		sys.exit(2) 
+		sys.exit(2)
 	locale.install()
 	print "Using locale '" + code + "'"
 else:
@@ -49,11 +53,16 @@ f.write("<resources>\n")
 for country in pycountry.countries:
 	line = '<string name=\"country_name_{code}\">{name}</string>'
 	if has_locale:
-		name_in_locale = _(country.name)
+		name_in_locale = _prepare_string(_(country.name))
 		f.write(line.format(code = country.numeric, name = name_in_locale))
 	else:
-		f.write(line.format(code = country.numeric, name = country.name.encode('utf-8')))
+		f.write(line.format(code = country.numeric, name = _prepare_string(country.name.encode('utf-8'))))
 	f.write('\n')
+
+f.write("<string-array name=\"country_codes\">\n")
+for country in pycountry.countries:
+	f.write("<item>{}</item>\n".format(country.numeric))
+f.write("</string-array>\n")
 f.write("</resources>\n")
 f.close()
 

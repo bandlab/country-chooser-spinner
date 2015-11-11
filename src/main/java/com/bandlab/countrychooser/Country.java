@@ -1,20 +1,17 @@
 package com.bandlab.countrychooser;
 
-import com.google.gson.annotations.SerializedName;
+public final class Country {
 
-/**
- * Created by vorobievilya on 22/12/14.
- */
-public class Country {
-    @SerializedName("name")
-    String countryName;
-    @SerializedName("country-code")
-    int countryCodeNumbers;
-    @SerializedName("alpha-2")
-    String countryCodeLetters;
+    public final String name;
+    public final int code;
+
+    Country(String name, int code) {
+        this.name = name;
+        this.code = code;
+    }
 
     @Override
     public String toString() {
-        return countryName;
+        return name;
     }
 }
