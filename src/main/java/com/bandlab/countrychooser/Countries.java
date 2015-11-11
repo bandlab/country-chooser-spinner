@@ -9,10 +9,15 @@ import com.example.modulecountrychooser.R;
 
 public final class Countries {
     private static final String RES_ID_FORMAT = "country_name_%03d";
+    private static final String COUNTRY_CODE_FORMAT = "%03d";
     private static SparseArray<Country> countries;
 
     private Countries() {
         throw new IllegalStateException("No instances");
+    }
+
+    public static String formatAsCountryCode(int code) {
+        return String.format(COUNTRY_CODE_FORMAT, code);
     }
 
     @Nullable
