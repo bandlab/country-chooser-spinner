@@ -1,13 +1,13 @@
 package com.bandlab.countrychooser;
 
 import android.content.Context;
-import android.support.v7.widget.AppCompatSpinner;
 import android.util.AttributeSet;
 import android.widget.ArrayAdapter;
 
+import com.bandlab.defaultvaluespinner.DefaultValueSpinner;
 import com.example.modulecountrychooser.R;
 
-public class CountryChooser extends AppCompatSpinner {
+public class CountryChooser extends DefaultValueSpinner {
 
     private final Country[] countries;
 
@@ -24,7 +24,7 @@ public class CountryChooser extends AppCompatSpinner {
             countries[i] = Countries.getCountryByCode(context, Integer.parseInt(code));
         }
         ArrayAdapter<Country> adapter = new ArrayAdapter<>(getContext(), R.layout.country_item, countries);
-        setAdapter(adapter);
+        setDefaultValueAdapter(adapter, R.layout.country_item);
     }
 
     public final int getSelectedCountryCode() {
@@ -36,7 +36,9 @@ public class CountryChooser extends AppCompatSpinner {
         for (int i = 0; i < countries.length; i++) {
             if (countries[i].code == code) {
                 setSelection(i);
+                return;
             }
         }
+        selectDefault();
     }
 }
