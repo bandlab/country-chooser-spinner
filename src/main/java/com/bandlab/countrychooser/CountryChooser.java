@@ -29,6 +29,9 @@ public class CountryChooser extends DefaultValueSpinner {
 
     public final int getSelectedCountryCode() {
         Country country = (Country) getSelectedItem();
+        if (country == null) {
+            return DEFAULT_POSITION;
+        }
         return country.code;
     }
 
