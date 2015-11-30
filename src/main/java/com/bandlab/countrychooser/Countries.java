@@ -20,6 +20,18 @@ public final class Countries {
         return String.format(COUNTRY_CODE_FORMAT, code);
     }
 
+    public static Country getCountryByCode(Context context, String code) {
+        if (code == null) {
+            return null;
+        }
+        try {
+            return getCountryByCode(context, Integer.parseInt(code));
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     @Nullable
     public static Country getCountryByCode(Context context, int code) {
         final Resources resources = context.getResources();

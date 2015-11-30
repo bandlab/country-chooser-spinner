@@ -35,12 +35,17 @@ public class CountryChooser extends DefaultValueSpinner {
         return country.code;
     }
 
-    public final void selectCountry(int code) {
-        for (int i = 0; i < countries.length; i++) {
-            if (countries[i].code == code) {
-                setSelection(i);
-                return;
+    public final void selectCountry(String codeString) {
+        try {
+            int code = Integer.parseInt(codeString);
+            for (int i = 0; i < countries.length; i++) {
+                if (countries[i].code == code) {
+                    setSelection(i);
+                    return;
+                }
             }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
         }
         selectDefault();
     }
