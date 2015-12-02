@@ -4,8 +4,8 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ArrayAdapter;
 
+import com.bandlab.countrychooser.R;
 import com.bandlab.defaultvaluespinner.DefaultValueSpinner;
-import com.example.modulecountrychooser.R;
 
 public class CountryChooser extends DefaultValueSpinner {
 

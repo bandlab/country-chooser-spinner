@@ -5,7 +5,7 @@ import android.content.res.Resources;
 import android.support.annotation.Nullable;
 import android.util.SparseArray;
 
-import com.example.modulecountrychooser.R;
+import com.bandlab.countrychooser.R;
 
 public final class Countries {
     private static final String RES_ID_FORMAT = "country_name_%03d";
