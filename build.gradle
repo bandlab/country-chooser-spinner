@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion Integer.parseInt(rootProject.ANDROID_SDK_VERSION)
-    buildToolsVersion rootProject.ANDROID_BUILD_TOOLS_VERSION
+    buildToolsVersion '23.0.2'
 
     defaultConfig {
         minSdkVersion Integer.parseInt(rootProject.MIN_ANDROID_SDK_VERSION)
