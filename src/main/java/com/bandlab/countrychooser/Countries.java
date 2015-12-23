@@ -5,7 +5,7 @@ import android.content.res.Resources;
 import android.support.annotation.Nullable;
 import android.util.SparseArray;
 
-import com.bandlab.countrychooser.R;
+import java.util.Locale;
 
 public final class Countries {
     private static final String RES_ID_FORMAT = "country_name_%03d";
@@ -17,7 +17,7 @@ public final class Countries {
     }
 
     public static String formatAsCountryCode(int code) {
-        return String.format(COUNTRY_CODE_FORMAT, code);
+        return String.format(Locale.ENGLISH, COUNTRY_CODE_FORMAT, code);
     }
 
     public static Country getCountryByCode(Context context, String code) {
@@ -47,7 +47,7 @@ public final class Countries {
         } else {
             Country country = countries.get(code);
             if (country == null) {
-                final String resourceName = String.format(RES_ID_FORMAT, code);
+                final String resourceName = String.format(Locale.ENGLISH, RES_ID_FORMAT, code);
                 int resId = resources.getIdentifier(resourceName, "string", context.getPackageName());
                 final String name = resources.getString(resId);
                 country = new Country(name, code);
