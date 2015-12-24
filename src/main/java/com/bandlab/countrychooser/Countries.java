@@ -20,6 +20,15 @@ public final class Countries {
         return String.format(Locale.ENGLISH, COUNTRY_CODE_FORMAT, code);
     }
 
+    private static synchronized void initCountries(Context context) {
+        final String[] codes = context.getResources().getStringArray(R.array.country_codes);
+        countries = new SparseArray<>(codes.length);
+        for (String codeStr : codes) {
+            countries.append(Integer.parseInt(codeStr), null);
+        }
+    }
+
+    @SuppressWarnings("unused")
     public static Country getCountryByCode(Context context, String code) {
         if (code == null) {
             return null;
@@ -36,11 +45,7 @@ public final class Countries {
     public static Country getCountryByCode(Context context, int code) {
         final Resources resources = context.getResources();
         if (countries == null) {
-            final String[] codes = resources.getStringArray(R.array.country_codes);
-            countries = new SparseArray<>(codes.length);
-            for (String codeStr : codes) {
-                countries.append(Integer.parseInt(codeStr), null);
-            }
+            initCountries(context);
         }
         if (countries.indexOfKey(code) < 0) {
             return null;
