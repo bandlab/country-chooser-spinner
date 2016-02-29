@@ -20,6 +20,7 @@ android {
 }
 
 dependencies {
+    //noinspection GradleDependency
     compile "com.android.support:appcompat-v7:$rootProject.ANDROID_SUPPORT_LIBRARY_VERSION"
     compile 'com.bandlab.defaultvaluespinner:lib_defaultvaluespinner:1.0.0'
 }
