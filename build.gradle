@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 
 project.ext.publishingGroupId = 'com.bandlab.countrychooser'
-project.ext.publishingVersion = '1.0.0'
+project.ext.publishingVersion = '1.0.1'
 apply from: '../artifactory.gradle'
 
 android {
