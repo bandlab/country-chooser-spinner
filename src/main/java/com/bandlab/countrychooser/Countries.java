@@ -52,9 +52,12 @@ public final class Countries {
         } else {
             Country country = countries.get(code);
             if (country == null) {
-                final String resourceName = String.format(Locale.ENGLISH, RES_ID_FORMAT, code);
+                String resourceName = String.format(Locale.ENGLISH, RES_ID_FORMAT, code);
                 int resId = resources.getIdentifier(resourceName, "string", context.getPackageName());
-                final String name = resources.getString(resId);
+                if (resId == 0) {
+                    return null;
+                }
+                String name = resources.getString(resId);
                 country = new Country(name, code);
                 countries.put(code, country);
             }
