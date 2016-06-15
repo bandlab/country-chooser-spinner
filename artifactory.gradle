@@ -1,0 +1,83 @@
+def Object getBuildProperty(String varName, String defaultValue = null) {
+    if (System.getenv().containsKey(varName)) {
+        return System.getenv()[varName]
+    }
+
+    def File propsFile = file(rootProject.file('local.properties'))
+    if (propsFile.exists() && propsFile.canRead()) {
+        def Properties localProps = new Properties()
+
+        localProps.load(new FileInputStream(propsFile))
+        if (localProps.containsKey(varName)) {
+            return localProps[varName];
+        }
+    }
+
+    if (rootProject.hasProperty(varName)) {
+        return rootProject.property(varName)
+    }
+
+    return defaultValue
+}
+
+if (rootProject.plugins.hasPlugin("com.jfrog.artifactory") && getBuildProperty('ARTIFACTORY_PUBLISH_USERNAME')) {
+
+    apply plugin: 'com.jfrog.artifactory'
+    apply plugin: 'maven-publish'
+
+    //Workaround for strange init error "Cannot invoke method invoke() on null object"
+    def contextUrlTmp = getBuildProperty('ARTIFACTORY_CONTEXT_URL')
+
+    //By default we publish snapshots, if you want publish release
+    //please set env variable or gradle -P argument with PUBLISH_RELEASE=true
+    def publishRelease = getBuildProperty('PUBLISH_RELEASE', 'false').toBoolean()
+
+    def repoKeyTmp = publishRelease ?
+            getBuildProperty('ARTIFACTORY_REPO_KEY') :
+            getBuildProperty('ARTIFACTORY_SNAPSHOTS_REPO_KEY')
+
+    if (!repoKeyTmp) {
+        throw GradleException("Repo key is empty. Please set ARTIFACTORY_REPO_KEY and ARTIFACTORY_SNAPSHOTS_REPO_KEY")
+    }
+
+    def usernameTmp = getBuildProperty('ARTIFACTORY_PUBLISH_USERNAME')
+    def passwordTmp = getBuildProperty('ARTIFACTORY_PUBLISH_PASSWORD')
+
+    task androidSourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.sourceFiles
+    }
+
+    publishing {
+        publications {
+            aar(MavenPublication) {
+                artifact "$project.buildDir/outputs/aar/${project.getName()}-release.aar"
+                artifact androidSourcesJar
+
+                groupId project.ext.publishingGroupId
+                version project.ext.publishingVersion + (publishRelease ? "" : "-SNAPSHOT")
+                artifactId project.getName()
+            }
+        }
+    }
+
+    artifactory {
+        contextUrl = contextUrlTmp
+        publish {
+            repository {
+                repoKey = repoKeyTmp
+                username = usernameTmp
+                password = passwordTmp
+                maven = true
+            }
+        }
+    }
+
+    artifactoryPublish {
+        publications('aar')
+    }
+
+    artifactoryPublish.dependsOn('clean', 'generatePomFileForAarPublication', 'androidSourcesJar', 'assembleRelease')
+    publish.dependsOn artifactoryPublish
+    artifactoryPublish.mustRunAfter('clean')
+}
