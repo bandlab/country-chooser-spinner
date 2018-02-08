@@ -5,9 +5,13 @@ android:
   components:
   - platform-tools
   - tools
-  - build-tools-24.0.0
-  - android-24
+  - build-tools-27.0.2
+  - android-27
   - extra-android-m2repository
+  licenses:
+  - 'android-sdk-preview-license-52d11cd2'
+  - 'android-sdk-license-.+'
+  - 'google-gdk-license-.+'
 
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
