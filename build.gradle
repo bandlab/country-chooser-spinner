@@ -1,7 +1,7 @@
 buildscript {
     repositories {
         jcenter()
-        maven { url "https://maven.google.com" }
+        google()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
@@ -14,7 +14,7 @@ plugins {
 
 repositories {
     jcenter()
-    maven { url "https://maven.google.com" }
+    google()
 }
 
 apply plugin: 'com.android.library'
