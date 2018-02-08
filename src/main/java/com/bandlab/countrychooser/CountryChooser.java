@@ -17,10 +17,10 @@ public class CountryChooser extends DefaultValueSpinner {
     public CountryChooser(Context context, AttributeSet attrs) {
         super(context, attrs);
         final String[] codes = context.getResources().getStringArray(R.array.country_codes);
-        countries = new Country[codes.length+1];
-        countries[0] = new Country("--Country--", -1);
-        for (int i = 1; i <= codes.length; i++) {
-            countries[i] = Countries.getCountryByCode(context, Integer.parseInt(codes[i-1]));
+        countries = new Country[codes.length];
+        for (int i = 0; i < codes.length; i++) {
+            String code = codes[i];
+            countries[i] = Countries.getCountryByCode(context, Integer.parseInt(code));
         }
         ArrayAdapter<Country> adapter = new ArrayAdapter<>(getContext(), R.layout.country_item, countries);
         setDefaultValueAdapter(adapter, R.layout.country_item);
