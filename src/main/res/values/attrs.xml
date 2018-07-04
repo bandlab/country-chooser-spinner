@@ -3,4 +3,8 @@
     <declare-styleable name="DefaultValueSpinner">
         <attr name="defaultText" format="string" />
     </declare-styleable>
+
+    <declare-styleable name="CountryChooser">
+        <attr name="dropdownLayout" format="reference" />
+    </declare-styleable>
 </resources>
