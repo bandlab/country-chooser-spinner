@@ -4,7 +4,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.1.2'
     }
 }
 
@@ -20,12 +20,12 @@ repositories {
 apply plugin: 'com.android.library'
 
 project.ext.publishingGroupId = 'com.bandlab.countrychooser'
-project.ext.publishingVersion = '1.1.1'
+project.ext.publishingVersion = '1.1.2'
 apply from: 'artifactory.gradle'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.2'
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         minSdkVersion 9
