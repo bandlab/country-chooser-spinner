@@ -2,10 +2,11 @@ package com.bandlab.countrychooser;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.support.annotation.Nullable;
 import android.util.SparseArray;
 
 import java.util.Locale;
+
+import androidx.annotation.Nullable;
 
 public final class Countries {
     private static final String RES_ID_FORMAT = "country_name_%03d";

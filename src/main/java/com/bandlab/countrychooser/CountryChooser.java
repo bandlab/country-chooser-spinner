@@ -2,11 +2,12 @@ package com.bandlab.countrychooser;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.annotation.LayoutRes;
 import android.util.AttributeSet;
 import android.widget.ArrayAdapter;
 
 import com.bandlab.defaultvaluespinner.DefaultValueSpinner;
+
+import androidx.annotation.LayoutRes;
 
 public class CountryChooser extends DefaultValueSpinner {
 

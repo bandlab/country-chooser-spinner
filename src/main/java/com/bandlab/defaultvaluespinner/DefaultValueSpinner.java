@@ -2,13 +2,14 @@ package com.bandlab.defaultvaluespinner;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.annotation.LayoutRes;
-import android.support.v7.widget.AppCompatSpinner;
 import android.util.AttributeSet;
 import android.widget.BaseAdapter;
 import android.widget.SpinnerAdapter;
 
 import com.bandlab.countrychooser.R;
+
+import androidx.annotation.LayoutRes;
+import androidx.appcompat.widget.AppCompatSpinner;
 
 public class DefaultValueSpinner extends AppCompatSpinner {
 
