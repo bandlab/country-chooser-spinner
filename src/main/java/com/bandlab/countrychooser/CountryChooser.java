@@ -25,9 +25,7 @@ public class CountryChooser extends DefaultValueSpinner {
         final String[] codes = context.getResources().getStringArray(R.array.country_codes);
         countries = new Country[codes.length+1];
 
-        String defaultCountryName = defaultSelectionText == null
-                ? context.getResources().getString(R.string.default_selection_text)
-                : defaultSelectionText;
+        String defaultCountryName = defaultSelectionText == null ? "" : defaultSelectionText;
 
         countries[0] = new Country(defaultCountryName, -1);
         for (int i = 1; i <= codes.length; i++) {

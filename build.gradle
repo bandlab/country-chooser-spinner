@@ -20,7 +20,7 @@ repositories {
 apply plugin: 'com.android.library'
 
 project.ext.publishingGroupId = 'com.bandlab.countrychooser'
-project.ext.publishingVersion = '1.1.3'
+project.ext.publishingVersion = '1.2.0'
 apply from: 'artifactory.gradle'
 
 android {
