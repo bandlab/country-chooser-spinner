@@ -5,6 +5,7 @@
     </declare-styleable>
 
     <declare-styleable name="CountryChooser">
+        <attr name="defaultSelectionText" format="string" />
         <attr name="dropdownLayout" format="reference" />
     </declare-styleable>
 </resources>

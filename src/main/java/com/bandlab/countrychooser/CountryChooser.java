@@ -2,16 +2,18 @@ package com.bandlab.countrychooser;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.annotation.LayoutRes;
 import android.util.AttributeSet;
 import android.widget.ArrayAdapter;
 
 import com.bandlab.defaultvaluespinner.DefaultValueSpinner;
 
+import androidx.annotation.LayoutRes;
+
 public class CountryChooser extends DefaultValueSpinner {
 
     private final Country[] countries;
     @LayoutRes private int dropdownLayout;
+    private String defaultSelectionText;
 
     public CountryChooser(Context context) {
         this(context, null);
@@ -23,7 +25,10 @@ public class CountryChooser extends DefaultValueSpinner {
 
         final String[] codes = context.getResources().getStringArray(R.array.country_codes);
         countries = new Country[codes.length+1];
-        countries[0] = new Country(context.getResources().getString(R.string.default_selection), -1);
+
+        String defaultCountryName = defaultSelectionText == null ? "" : defaultSelectionText;
+
+        countries[0] = new Country(defaultCountryName, -1);
         for (int i = 1; i <= codes.length; i++) {
             countries[i] = Countries.getCountryByCode(context, Integer.parseInt(codes[i-1]));
         }
@@ -36,6 +41,7 @@ public class CountryChooser extends DefaultValueSpinner {
         TypedArray a = getContext().getTheme().obtainStyledAttributes(attrs, R.styleable.CountryChooser, 0, 0);
         try {
             dropdownLayout = a.getResourceId(R.styleable.CountryChooser_dropdownLayout, 0);
+            defaultSelectionText = a.getString(R.styleable.CountryChooser_defaultSelectionText);
         } finally {
             a.recycle();
         }
